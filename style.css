@@ -1,0 +1,259 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #eef2f7, #ffffff);
+}
+
+/* APP CONTAINER (MOBILE LOOK) */
+.app {
+  max-width: 420px;
+  margin: auto;
+  min-height: 100vh;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* HEADER */
+h2 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+/* TABS (SLIDER STYLE) */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 5px;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #f1f3f6;
+  color: #444;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tabs i {
+  width: 16px;
+  height: 16px;
+}
+
+.tabs button:hover {
+  transform: scale(1.05);
+}
+
+.tabs .active {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+}
+
+/* ISSUE CARDS */
+.issue {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.issue:hover {
+  transform: translateY(-2px);
+}
+
+.issue strong {
+  font-size: 15px;
+  color: #222;
+}
+
+.issue p {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* STATUS BADGES */
+.status-row {
+  margin-top: 8px;
+}
+
+/* Base badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.status-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Pending (gold/orange) */
+.pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #b8860b;
+}
+
+/* Accepted (purple) */
+.accepted {
+  background: rgba(138, 43, 226, 0.15);
+  color: #6a0dad;
+}
+
+/* Completed (green) */
+.completed {
+  background: rgba(40, 167, 69, 0.2);
+  color: #1e7e34;
+}
+
+/* FLOATING BUTTON */
+.fab {
+  position: fixed;
+  bottom: 25px;
+  right: calc(50% - 180px);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  color: white;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  box-shadow: 0 10px 20px rgba(255, 65, 108, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+}
+
+/* MODAL OVERLAY */
+.modal {
+  display: none;   /* ✅ hidden by default */
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+
+  justify-content: center;
+  align-items: center;
+}
+
+/* MODAL CONTENT (GLASS EFFECT) */
+.modal-content {
+  width: 280px;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  animation: slideUp 0.3s ease;
+}
+
+/* INPUTS */
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+/* BUTTONS */
+.modal-content button {
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.modal-content button:first-child {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+}
+
+.modal-content button:last-child {
+  background: #eee;
+}
+
+/* ANIMATION */
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.actions button {
+  border: none;
+  margin-left: 5px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.actions button:first-child {
+  background: #28a745;
+  color: white;
+}
+
+.actions button:last-child {
+  background: #dc3545;
+  color: white;
+}

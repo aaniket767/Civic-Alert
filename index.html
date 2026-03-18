@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CivicAlert</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/565/565547.png" />
+  </head>
+<body>
+
+<div class="app">
+  <h2><p style="text-align:center;"> CivicAlert
+  </h2>
+<p style="text-align:center; color:#666; font-size:20px;">
+  Report & Track Civic Issue In Your Area
+</p>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs"></div>
+
+  <!-- Issues -->
+  <div id="issues"></div>
+
+  <!-- Floating Button -->
+  <button class="fab" onclick="openForm()">+</button>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Report Issue</h3>
+
+      <input id="title" placeholder="Title"><br>
+      <select id="category"></select><br>
+      <input id="location" placeholder="Location"><br>
+
+      <button onclick="submitIssue()">Submit</button>
+      <button onclick="closeForm()">Cancel</button>
+    </div>
+  </div>
+
+</div>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script type="module" src="script.js"></script>
+</body>
+</html>
