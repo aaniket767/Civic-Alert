@@ -36,16 +36,6 @@ A simple web app to report and track everyday civic issues in one division by lo
 
 ---
 
-## 📌 Project Type
-
-This is a beginner-friendly full-stack prototype built to explore:
-
-* Frontend development
-* Cloud databases
-* Real-time data handling
-
----
-
 ## 🔮 Future Improvements
 
 * User authentication (admin control)
@@ -61,7 +51,3 @@ This is a beginner-friendly full-stack prototype built to explore:
 To be annouced...
 
 ---
-
-##  Author
-
-Aniket Pathak
