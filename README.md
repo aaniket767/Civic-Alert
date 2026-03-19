@@ -1,6 +1,6 @@
 # CivicAlert
 
-A simple web app to report and track everyday civic issues in one division by local bodies
+A simple web app to report and track everyday civic issues in one division by local body
 
 ## 🌐 Live Demo
 
@@ -12,28 +12,18 @@ A simple web app to report and track everyday civic issues in one division by lo
 
 * Report civic issues (Garbage, Water, Electricity, etc.)
 * Category-based filtering
-* Status tracking (Pending → Accepted → Completed)
-* Cloud storage using Firebase
+* Status tracking
+* Cloud storage
 * Mobile-friendly UI 📱
-* Clean modern design with icons
 
 ---
 
 ## Languages used
 
-* HTML, CSS, JavaScript
-* Firebase Firestore (Database)
-* Vercel (Deployment)
-
----
-
-## How it works
-
-1. User submits an issue
-2. Data is stored in Firebase
-3. All users can view issues
-4. Status updates reflect instantly
-
+* HTML
+* CSS 
+* JavaScript
+  
 ---
 
 ## 🔮 Future Improvements
