@@ -11,7 +11,7 @@ body {
   background: linear-gradient(135deg, #eef2f7, #ffffff);
 }
 
-/* APP CONTAINER (MOBILE LOOK) */
+/* APP */
 .app {
   max-width: 420px;
   margin: auto;
@@ -24,22 +24,39 @@ body {
   overflow: hidden;
 }
 
-/* HEADER */
-h2 {
-  text-align: center;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 5px;
+/* logo size and width */
+.logo {
+  width: 120px;        /* adjust size */
+  display: block;
+  margin: 10px auto;   /* center it */
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.logo {
+  width:  180px;   /* bigger since it's main identity */
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .subtitle {
   text-align: center;
-  font-size: 12px;
-  color: #777;
-  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  color: #111;
+  line-height: 1.3;
 }
 
-/* TABS (SLIDER STYLE) */
+/* tabs */
 .tabs {
   display: flex;
   overflow-x: auto;
@@ -81,7 +98,7 @@ h2 {
   box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
 }
 
-/* ISSUE CARDS */
+/* issue */
 .issue {
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(10px);
@@ -107,7 +124,7 @@ h2 {
   margin-top: 4px;
 }
 
-/* STATUS BADGES */
+/* status */
 .status-row {
   margin-top: 8px;
 }
@@ -128,25 +145,25 @@ h2 {
   transform: scale(1.05);
 }
 
-/* Pending (gold/orange) */
+/* Pending  */
 .pending {
   background: rgba(255, 193, 7, 0.2);
   color: #b8860b;
 }
 
-/* Accepted (purple) */
+/* Accepted  */
 .accepted {
   background: rgba(138, 43, 226, 0.15);
   color: #6a0dad;
 }
 
-/* Completed (green) */
+/* Completed  */
 .completed {
   background: rgba(40, 167, 69, 0.2);
   color: #1e7e34;
 }
 
-/* FLOATING BUTTON */
+/* floating button */
 .fab {
   position: fixed;
   bottom: 25px;
@@ -167,9 +184,9 @@ h2 {
   transform: scale(1.1);
 }
 
-/* MODAL OVERLAY */
+/* modal overlay */
 .modal {
-  display: none;   /* ✅ hidden by default */
+  display: none;   /* hidden  */
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.4);
@@ -179,7 +196,7 @@ h2 {
   align-items: center;
 }
 
-/* MODAL CONTENT (GLASS EFFECT) */
+/* modal content(glass efect) */
 .modal-content {
   width: 280px;
   padding: 20px;
@@ -191,7 +208,7 @@ h2 {
   animation: slideUp 0.3s ease;
 }
 
-/* INPUTS */
+/* inputs*/
 .modal-content input,
 .modal-content select {
   width: 100%;
@@ -202,7 +219,7 @@ h2 {
   font-size: 13px;
 }
 
-/* BUTTONS */
+
 .modal-content button {
   padding: 8px 12px;
   margin: 5px;
@@ -221,7 +238,7 @@ h2 {
   background: #eee;
 }
 
-/* ANIMATION */
+/* animation */
 @keyframes slideUp {
   from {
     transform: translateY(40px);
