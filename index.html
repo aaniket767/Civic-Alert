@@ -5,46 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CivicAlert</title>
 
-  <img src="/logo.png" alt="logo">
-<link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-  
-<img src="/logo.png" alt="logo">
-  
-<div class="app">
-  <h2><p style="text-align:center;"> CivicAlert
-  </h2>
-<p style="text-align:center; color:#666; font-size:20px;">
-  Report & Track Civic Issue In Your Area
-</p>
 
-  <!-- Tabs -->
-  <div class="tabs" id="tabs"></div>
+  <!-- LOGO -->
+  <img src="/logo.png" alt="logo">
 
-  <!-- Issues -->
-  <div id="issues"></div>
+  <div class="app">
+    <h2 style="text-align:center;">CivicAlert</h2>
 
-  <!-- Floating Button -->
-  <button class="fab" onclick="openForm()">+</button>
+    <p style="text-align:center; color:#666; font-size:20px;">
+      Report & Track Civic Issue In Your Area
+    </p>
 
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <h3>Report Issue</h3>
+    <!-- Tabs -->
+    <div class="tabs" id="tabs"></div>
 
-      <input id="title" placeholder="Title"><br>
-      <select id="category"></select><br>
-      <input id="location" placeholder="Location"><br>
+    <!-- Issues -->
+    <div id="issues"></div>
 
-      <button onclick="submitIssue()">Submit</button>
-      <button onclick="closeForm()">Cancel</button>
+    <!-- Floating Button -->
+    <button class="fab" onclick="openForm()">+</button>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <h3>Report Issue</h3>
+
+        <input id="title" placeholder="Title"><br>
+        <select id="category"></select><br>
+        <input id="location" placeholder="Location"><br>
+
+        <button onclick="submitIssue()">Submit</button>
+        <button onclick="closeForm()">Cancel</button>
+      </div>
     </div>
   </div>
 
-</div>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script type="module" src="script.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="/script.js"></script>
+
 </body>
 </html>
