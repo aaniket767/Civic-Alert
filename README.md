@@ -4,7 +4,7 @@ A simple web app to report and track everyday civic issues in one division by lo
 
 ## 🌐 Live Demo
 
-👉 https://civic-alert-omega.vercel.app/
+👉 https://civicalert-umber.vercel.app/
 
 ---
 
