@@ -1,7 +1,13 @@
+const CACHE_NAME = "civic-alert-v1";
+
 self.addEventListener("install", (event) => {
-  console.log("Service Worker Installed");
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  console.log("Service Worker Active");
 });
 
 self.addEventListener("fetch", (event) => {
-  // basic setup (no caching yet)
+  event.respondWith(fetch(event.request));
 });
