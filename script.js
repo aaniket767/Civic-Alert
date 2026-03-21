@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+import { deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCX8teiRDyCKS2CWgfcobojYJBzilYHVis",
@@ -21,7 +21,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 const categories = [
   { name: "All", icon: "list" },
   { name: "Garbage", icon: "trash-2" },
@@ -30,16 +31,11 @@ const categories = [
   { name: "Electricity", icon: "zap" },
   { name: "Emergency", icon: "alert-triangle" }
 ];
-
+const ADMIN_EMAIL = "aaniket.7675@gmail.com";
+let currentUser = null;
 let activeTab = "All";
 
 //LOAD ISSUES
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-const ADMIN_EMAIL = "aaniket.7675@gmail.com";
-let currentUser = null;
-
 window.login = async function () {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -49,11 +45,14 @@ window.login = async function () {
     alert(err.message);
   }
 };
-let isAdmin = currentUser?.email === ADMIN_EMAIL;
+
 // persist login
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
-  loadIssues();
+
+  console.log("Logged in user:", user?.email);
+
+  loadIssues(); // 🔥 THIS refreshes UI
 });
 
 async function loadIssues() {
@@ -71,42 +70,48 @@ async function loadIssues() {
     div.className = "issue";
 
     div.innerHTML = `
-      <strong>${issue.title}</strong>
-      <p>
-        <i data-lucide="${
-          categories.find(c => c.name === issue.category)?.icon || "circle"
-        }"></i>
-        ${issue.category}
-      </p>
-      <p>📍 ${issue.location}</p>
-      <p>${issue.time}</p>
+  <strong>${issue.title}</strong>
+  <p>
+    <i data-lucide="${
+      categories.find(c => c.name === issue.category)?.icon || "circle"
+    }"></i>
+    ${issue.category}
+  </p>
+  <p>📍 ${issue.location}</p>
+  <p>${issue.time}</p>
 
-      ${issue.remark ? `<p class="remark">💬 ${issue.remark}</p>` : ""}
+  ${issue.remark ? `<p class="remark">💬 ${issue.remark}</p>` : ""}
 
-     ${(() => {
-   return `
-    <div class="status-row">
-      <span class="status-badge ${
-        issue.status === "Pending"
-          ? "pending"
-          : issue.status === "Accepted"
-          ? "accepted"
-          : "completed"
-      }">
-        ${issue.status}
-      </span>
+  ${(() => {
+    let isAdmin = currentUser?.email === ADMIN_EMAIL; // ✅ FIXED
 
-      ${
-        isAdmin
-          ? `
-          <div class="admin-panel">
-            <button onclick="cycleStatus('${docSnap.id}', '${issue.status}')">Update</button>
-            <button onclick="addRemark('${docSnap.id}')">Remark</button>
-          </div>
-        `
-          : ""
-      }
-    </div>
+    return `
+      <div class="status-row">
+        <span class="status-badge ${
+          issue.status === "Pending"
+            ? "pending"
+            : issue.status === "Accepted"
+            ? "accepted"
+            : "completed"
+        }">
+          ${issue.status}
+        </span>
+
+        ${
+          isAdmin
+            ? `
+            <div class="admin-panel">
+              <button onclick="cycleStatus('${docSnap.id}', '${issue.status}')">Update</button>
+              <button onclick="deleteIssue('${docSnap.id}')">Delete</button>
+              <button onclick="addRemark('${docSnap.id}')">Remark</button>
+            </div>
+            `
+            : ""
+        }
+      </div>
+    `;
+  })()}
+`;
   `;
   })()}
     `;
@@ -143,18 +148,6 @@ window.cycleStatus = async function (id, currentStatus) {
   });
 
   loadIssues();
-
-  window.addRemark = async function (id) {
-  const text = prompt("Enter remark:");
-
-  if (!text) return;
-
-  await updateDoc(doc(db, "issues", id), {
-    remark: text
-  });
-
-  loadIssues();
-};
 };
 
 // TABS
@@ -251,6 +244,22 @@ setTimeout(() => {
   const splash = document.getElementById("splash");
   if (splash) splash.style.display = "none";
 }, 3000);
+//delete doc
+window.deleteIssue = async function (id) {
+  await deleteDoc(doc(db, "issues", id));
+  loadIssues();
+};
+window.addRemark = async function (id) {
+  const text = prompt("Enter remark:");
+
+  if (!text) return;
+
+  await updateDoc(doc(db, "issues", id), {
+    remark: text
+  });
+
+  loadIssues();
+};
 
 // INIT
 initCategorySelect();
