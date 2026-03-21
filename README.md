@@ -27,11 +27,10 @@ A simple web app to report and track everyday civic issues in one division by lo
 
 ## 🔮 Future Improvements
 
-* User authentication (admin control)
 * Image upload support
 * Map-based reporting
 * Complaint history tracking
-* Ranking based on helo provided by indivisual
+* Notification support if in  nearby location
 
 ---
 
