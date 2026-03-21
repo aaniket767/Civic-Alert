@@ -8,46 +8,41 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#ff416c">
 
-   <!-- PWA support -->
-   <meta name="mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-capable" content="yes">
-   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-   <link rel="apple-touch-icon" href="/icon-192.png">
-
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
   <div id="splash">
-  <h1>CivicAlert</h1>
-   </div> 
+    <img src="/icon-512.png" class="splash-logo" />
+    </div>
+  <div class="app">
 
-  <!-- LOGO -->
+    <!-- HEADER -->
+    <div class="header">
+  <div class="left">
+    <img src="/icon-512.png" class="app-logo">
+    <div class="text">
+      
+      <div class="subtitle">Report & Track Civic Issues</div>
+    </div>
+  </div>
 
-  <div class="header">
-  <img src="/logo.png" alt="CivicAlert" class="logo">
+  <div class="right">
+    <div class="admin-trigger" onclick="login()">👤</div>
+  </div>
 </div>
+        <div id="adminBar">
+      <span>Admin</span>
+      <button onclick="logout()">Logout</button>
+    </div>
 
-<p class="subtitle">
-  Report & Track Civic Issue In Your Area 
-  </p>
-
-    <!-- Tabs -->
     <div class="tabs" id="tabs"></div>
-
-    <!-- Issues -->
     <div id="issues"></div>
 
-    <!-- Floating Button -->
+    <!-- FLOAT BUTTON -->
     <button class="fab" onclick="openForm()">+</button>
 
-    <!--login button-->
-    <h2 onclick="login()" style="cursor:pointer;">CivicAlert</h2>
-
-    <!-- Modal -->
     <div class="modal" id="modal">
       <div class="modal-content">
         <h3>Report Issue</h3>
@@ -60,6 +55,7 @@
         <button onclick="closeForm()">Cancel</button>
       </div>
     </div>
+
   </div>
 
   <script src="https://unpkg.com/lucide@latest"></script>
