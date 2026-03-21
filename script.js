@@ -1,4 +1,3 @@
-// Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import {
@@ -8,7 +7,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-// Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyCX8teiRDyCKS2CWgfcobojYJBzilYHVis",
   authDomain: "civic-alert-web.firebaseapp.com",
@@ -24,7 +23,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const categories = [
-  { name: "All", icon: "list" },
+  { name: "All", icon: "layout-grid" },
   { name: "Garbage", icon: "trash-2" },
   { name: "Water", icon: "droplet" },
   { name: "Drainage", icon: "waves" },
@@ -35,7 +34,6 @@ const ADMIN_EMAIL = "aaniket.7675@gmail.com";
 let currentUser = null;
 let activeTab = "All";
 
-//LOAD ISSUES
 window.login = async function () {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -45,17 +43,18 @@ window.login = async function () {
     alert(err.message);
   }
 };
-
-// persist login
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
 
-  const loginBtn = document.getElementById("loginBtn");
+  const adminBar = document.getElementById("adminBar");
+  const trigger = document.querySelector(".admin-trigger");
 
-  if (user) {
-    loginBtn.style.display = "none"; // ✅ hide after login
+  if (user && user.email === ADMIN_EMAIL) {
+    adminBar.style.display = "flex";
+    trigger.style.display = "none";
   } else {
-    loginBtn.style.display = "block"; // show only if not logged in
+    adminBar.style.display = "none";
+    trigger.style.display = "flex";
   }
 
   loadIssues();
@@ -89,7 +88,7 @@ async function loadIssues() {
   ${issue.remark ? `<p class="remark">💬 ${issue.remark}</p>` : ""}
 
   ${(() => {
-    let isAdmin = currentUser?.email === ADMIN_EMAIL; // ✅ FIXED
+    let isAdmin = currentUser?.email === ADMIN_EMAIL; 
 
     return `
       <div class="status-row">
@@ -128,7 +127,7 @@ async function loadIssues() {
   if (window.lucide) lucide.createIcons();
   
 }
-// auto location fetch
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -141,7 +140,6 @@ function getLocation() {
   }
 }
 
-//STATUS CHANGE
 window.cycleStatus = async function (id, currentStatus) {
   let newStatus;
 
@@ -155,7 +153,6 @@ window.cycleStatus = async function (id, currentStatus) {
 
   loadIssues();
 };
-
 // TABS
 function renderTabs() {
   const tabs = document.getElementById("tabs");
@@ -182,14 +179,12 @@ function renderTabs() {
   if (window.lucide) lucide.createIcons();
 }
 
-// OPEN FORM
 window.openForm = function () {
   document.getElementById("modal").style.display = "flex";
   initCategorySelect();
   getLocation();
 };
 
-// CLOSE FORM
 window.closeForm = function () {
   document.getElementById("modal").style.display = "none";
 };
@@ -238,19 +233,18 @@ if ("serviceWorker" in navigator) {
 }
 
 window.addEventListener("load", () => {
-  const splash = document.getElementById("splash");
+  setTimeout(() => {
+    const splash = document.getElementById("splash");
+    splash.style.opacity = "0";
+    splash.style.transition = "0.4s";
 
-  if (splash) {
     setTimeout(() => {
       splash.style.display = "none";
-    }, 1500);
-  }
+    }, 400);
+  }, 1400);
 });
-setTimeout(() => {
-  const splash = document.getElementById("splash");
-  if (splash) splash.style.display = "none";
-}, 3000);
-//delete doc
+
+
 window.deleteIssue = async function (id) {
   await deleteDoc(doc(db, "issues", id));
   loadIssues();
@@ -266,7 +260,20 @@ window.addRemark = async function (id) {
 
   loadIssues();
 };
+window.logout = async function () {
+  await signOut(auth);
+  currentUser = null;
 
+  document.getElementById("adminBar").style.display = "none";
+
+  loadIssues();
+};
+document.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.style.transform = "scale(0.95)";
+    setTimeout(() => (btn.style.transform = "scale(1)"), 100);
+  });
+});
 // INIT
 initCategorySelect();
 renderTabs();
