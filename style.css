@@ -13,7 +13,7 @@ body {
 #splash {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  background: #ffffff;
 
   display: flex;
   justify-content: center;
@@ -23,7 +23,7 @@ body {
 }.splash-logo {
   width: 90px;
   animation: splashAnim 1.5s ease-in-out forwards;
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.4));
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 @keyframes splashAnim {
   0% {
