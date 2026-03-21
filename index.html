@@ -5,17 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CivicAlert</title>
 
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ff416c">
+
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
 
+  <div id="splash">
+  <h1>CivicAlert</h1>
+   </div> 
+
   <!-- LOGO -->
 
   <div class="header">
-  <img src="/logo.png" alt="logo" class="logo">
-
+  <img src="/logo.png" alt="CivicAlert" class="logo">
 </div>
 
 <p class="subtitle">
@@ -30,6 +36,11 @@
 
     <!-- Floating Button -->
     <button class="fab" onclick="openForm()">+</button>
+
+    <!--login button-->
+    <button onclick="login()" style="position:absolute;top:10px;right:10px;">
+       Admin Login
+      </button>
 
     <!-- Modal -->
     <div class="modal" id="modal">
