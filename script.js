@@ -7,7 +7,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCX8teiRDyCKS2CWgfcobojYJBzilYHVis",
   authDomain: "civic-alert-web.firebaseapp.com",
