@@ -13,7 +13,7 @@ body {
 #splash {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
 
   display: flex;
   justify-content: center;
