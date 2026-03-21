@@ -50,9 +50,15 @@ window.login = async function () {
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
 
-  console.log("Logged in user:", user?.email);
+  const loginBtn = document.getElementById("loginBtn");
 
-  loadIssues(); // 🔥 THIS refreshes UI
+  if (user) {
+    loginBtn.style.display = "none"; // ✅ hide after login
+  } else {
+    loginBtn.style.display = "block"; // show only if not logged in
+  }
+
+  loadIssues();
 });
 
 async function loadIssues() {
