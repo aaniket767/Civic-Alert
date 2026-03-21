@@ -1,13 +1,14 @@
 // Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCX8teiRDyCKS2CWgfcobojYJBzilYHVis",
   authDomain: "civic-alert-web.firebaseapp.com",
@@ -33,6 +34,28 @@ const categories = [
 let activeTab = "All";
 
 //LOAD ISSUES
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const ADMIN_EMAIL = "aaniket.7675@gmail.com";
+let currentUser = null;
+
+window.login = async function () {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    currentUser = result.user;
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+let isAdmin = currentUser?.email === ADMIN_EMAIL;
+// persist login
+onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+  loadIssues();
+});
+
 async function loadIssues() {
   const container = document.getElementById("issues");
   container.innerHTML = "";
@@ -58,26 +81,53 @@ async function loadIssues() {
       <p>📍 ${issue.location}</p>
       <p>${issue.time}</p>
 
-      <div class="status-row">
-        <span 
-          class="status-badge ${
-            issue.status === "Pending"
-              ? "pending"
-              : issue.status === "Accepted"
-              ? "accepted"
-              : "completed"
-          }"
-          onclick="cycleStatus('${docSnap.id}', '${issue.status}')"
-        >
-          ${issue.status}
-        </span>
-      </div>
+      ${issue.remark ? `<p class="remark">💬 ${issue.remark}</p>` : ""}
+
+     ${(() => {
+   return `
+    <div class="status-row">
+      <span class="status-badge ${
+        issue.status === "Pending"
+          ? "pending"
+          : issue.status === "Accepted"
+          ? "accepted"
+          : "completed"
+      }">
+        ${issue.status}
+      </span>
+
+      ${
+        isAdmin
+          ? `
+          <div class="admin-panel">
+            <button onclick="cycleStatus('${docSnap.id}', '${issue.status}')">Update</button>
+            <button onclick="addRemark('${docSnap.id}')">Remark</button>
+          </div>
+        `
+          : ""
+      }
+    </div>
+  `;
+  })()}
     `;
 
     container.appendChild(div);
   });
 
   if (window.lucide) lucide.createIcons();
+  
+}
+// auto location fetch
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+
+      document.getElementById("location").value =
+        `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+    });
+  }
 }
 
 //STATUS CHANGE
@@ -93,6 +143,18 @@ window.cycleStatus = async function (id, currentStatus) {
   });
 
   loadIssues();
+
+  window.addRemark = async function (id) {
+  const text = prompt("Enter remark:");
+
+  if (!text) return;
+
+  await updateDoc(doc(db, "issues", id), {
+    remark: text
+  });
+
+  loadIssues();
+};
 };
 
 // TABS
@@ -125,6 +187,7 @@ function renderTabs() {
 window.openForm = function () {
   document.getElementById("modal").style.display = "flex";
   initCategorySelect();
+  getLocation();
 };
 
 // CLOSE FORM
@@ -141,12 +204,13 @@ window.submitIssue = async function () {
   if (!title || !category || !location) return;
 
   await addDoc(collection(db, "issues"), {
-    title,
-    category,
-    location,
-    status: "Pending",
-    time: new Date().toLocaleString()
-  });
+  title,
+  category,
+  location,
+  status: "Pending",
+  remark: "",   // ✅ NEW
+  time: new Date().toLocaleString()
+});
 
   document.getElementById("title").value = "";
   document.getElementById("category").value = "";
@@ -168,6 +232,25 @@ function initCategorySelect() {
     select.appendChild(opt);
   });
 }
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js")
+    .then(() => console.log("Service Worker Registered"));
+}
+
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
+
+  if (splash) {
+    setTimeout(() => {
+      splash.style.display = "none";
+    }, 1500);
+  }
+});
+setTimeout(() => {
+  const splash = document.getElementById("splash");
+  if (splash) splash.style.display = "none";
+}, 3000);
 
 // INIT
 initCategorySelect();
