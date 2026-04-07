@@ -133,13 +133,17 @@ window.cycleStatus = async function (id, currentStatus) {
   let newStatus;
 
   if (currentStatus === "Pending") newStatus = "Accepted";
+    if (newStatus === "Accepted")
+      showToast("Issue accepted 🟣", "warning");
   else if (currentStatus === "Accepted") newStatus = "Completed";
+  if (newStatus === "Completed")
+    showToast("Issue resolved 🟢", "success");
   else newStatus = "Pending";
 
   await updateDoc(doc(db, "issues", id), {
     status: newStatus
   });
-
+  showToast(`Marked as ${newStatus} 🔄`, "warning");
   
 };
 // TABS
@@ -183,9 +187,11 @@ window.submitIssue = async function () {
   const title = document.getElementById("title").value;
   const category = document.getElementById("category").value;
   const location = document.getElementById("location").value;
-
-  if (!title || !category || !location) return;
-
+  
+  if (!title || title.length < 3) {
+    alert("Invalid title");
+    return;
+  }
   await addDoc(collection(db, "issues"), {
   title,
   category,
@@ -194,13 +200,13 @@ window.submitIssue = async function () {
   remark: "",   // ✅ NEW
   time: new Date().toLocaleString()
 });
-
   document.getElementById("title").value = "";
   document.getElementById("category").value = "";
   document.getElementById("location").value = "";
 
   closeForm();
-  
+
+showToast("Issue submitted successfully ", "success");
 };
 
 // DROPDOWN
@@ -233,9 +239,25 @@ window.addEventListener("load", () => {
   }, 1400);
 });
 
+function showToast(message, type ="default"){
+  const container = document.getElementById("toast");
+
+  const div = document.createElement("div");
+  div.className = `toast-msg toast-${type}`;
+  div.innerText = message;
+
+  container.appendChild(div);
+
+  setTimeout(() => {
+    div.style.opacity = "0";
+    div.style.transform = "translateY(20px)";
+    setTimeout(() => div.remove(), 300);
+  }, 2500);
+}
 
 window.deleteIssue = async function (id) {
   await deleteDoc(doc(db, "issues", id));
+  showToast("issue deleted ", "error ❌")
   loadIssues();
 };
 window.addRemark = async function (id) {
