@@ -13,7 +13,7 @@ body {
 #splash {
   position: fixed;
   inset: 0;
-  background: #ffffff;
+  background:#ffffff;;
 
   display: flex;
   justify-content: center;
@@ -384,3 +384,41 @@ body {
   color: white;
   cursor: pointer;
 }
+
+#toast {position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;}
+  
+.toast-msg{ background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-size: 13px;
+  
+    opacity: 0;
+    transform: translateY(20px);
+    animation: toastIn 0.3s forwards;
+  }
+.toast-success {
+    background: rgba(40,167,69,0.9);
+  }
+
+  .toast-warning {
+    background: rgba(255,193,7,0.9);
+    color: black;
+  }
+  
+  .toast-error {
+    background: rgba(220,53,69,0.9);
+  }
+  
+  /* animation */
+  @keyframes toastIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
