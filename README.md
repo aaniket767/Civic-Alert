@@ -3,7 +3,7 @@
 A simple web app to report and track everyday civic issues in one division by local body
 
 ## 🌐 Live
-👉 https://civicalert-umber.vercel.app/
+👉
 
 ---
 
