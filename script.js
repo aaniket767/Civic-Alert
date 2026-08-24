@@ -10,15 +10,6 @@ import { deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-f
 import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCX8teiRDyCKS2CWgfcobojYJBzilYHVis",
-  authDomain: "civic-alert-web.firebaseapp.com",
-  projectId: "civic-alert-web",
-  storageBucket: "civic-alert-web.firebasestorage.app",
-  messagingSenderId: "1091845466484",
-  appId: "1:1091845466484:web:85727127cba556aa84e421"
-};
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
